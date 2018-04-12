@@ -92,23 +92,23 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
  //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-                                Intent intent1 = new Intent(WxDemoActivity.this, ImageGridActivity.class);
-                                /* 如果需要进入选择的时候显示已经选中的图片，
-                                 * 详情请查看ImagePickerActivity
-                                 * */
-//                                intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
-                                startActivityForResult(intent1, REQUEST_CODE_SELECT);
-				}
+  ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+  Intent intent1 = new Intent(WxDemoActivity.this, ImageGridActivity.class);
+  /* 如果需要进入选择的时候显示已经选中的图片，
+  * 详情请查看ImagePickerActivity
+  * */
+  // intent1.putExtra(ImageGridActivity.EXTRAS_IMAGES,images);
+   startActivityForResult(intent1, REQUEST_CODE_SELECT);
+}
 ```
 如果想打开摄像头
 ```
  //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-                                Intent intent = new Intent(WxDemoActivity.this, ImageGridActivity.class);
-                                intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
-                                startActivityForResult(intent, REQUEST_CODE_SELECT);
-				```
+ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
+Intent intent = new Intent(WxDemoActivity.this, ImageGridActivity.class);
+intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
+startActivityForResult(intent, REQUEST_CODE_SELECT);
+```
 				
 重写onActivityResult方法,回调结果
 ```
@@ -125,4 +125,4 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         }
     }
 }
-	```
+```
