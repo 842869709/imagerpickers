@@ -12,7 +12,12 @@ https://github.com/easonline/AndroidImagePicker
 喜欢原作的可以去使用。同时欢迎大家下载体验本项目，如果使用过程中遇到什么问题，欢迎反馈，我将持续更新此项目。
 
 示例图片
-(https://github.com/842869709/imagerpickers/blob/master/S80412-161446.jpg)
+
+![](https://github.com/842869709/imagerpickers/blob/master/S80412-161446.jpg)
+![](https://github.com/842869709/imagerpickers/blob/master/S80412-161452.jpg)
+![](https://github.com/842869709/imagerpickers/blob/master/S80412-161508.jpg)
+![](https://github.com/842869709/imagerpickers/blob/master/S80412-161543.jpg)
+![](https://github.com/842869709/imagerpickers/blob/master/S80412-161728.jpg)
 
 ## 1.用法
 使用前，对于Android Studio的用户，可以选择添加:
