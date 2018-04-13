@@ -29,7 +29,7 @@ https://github.com/easonline/AndroidImagePicker
 		}
 	}
 	dependencies {
-	        compile 'com.github.842869709:imagerpickers:v1.0.0'
+	        compile 'com.github.842869709:imagerpickers:v1.1.0'
 	}
 ```
 ## 2.功能参数与含义
@@ -69,6 +69,28 @@ public class GlideImageLoader implements ImageLoader {
                 .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存全尺寸
                 .into(imageView);
+    }
+    
+     //设置网络图片
+    @Override
+    public void displayInternetImage(Activity activity, String path, final ImageView imageView, int width, int height) {
+        Glide.with(activity)
+                .load(path)
+                .asBitmap()
+                .centerCrop()
+                .thumbnail(0.05f)
+                .error(R.drawable.ic_default_image)  //设置错误图片
+                .placeholder(R.drawable.ic_default_image)     //设置占位图片
+                .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存全尺寸
+                .into(new BitmapImageViewTarget(imageView) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(imageView.getContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(false);
+                        imageView.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
     }
 
     @Override
@@ -133,3 +155,5 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
+## v1.1.0图片预览支持网络图片
+## v1.0.0第一次提交
