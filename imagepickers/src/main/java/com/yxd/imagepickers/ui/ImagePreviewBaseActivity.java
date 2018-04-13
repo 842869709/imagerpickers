@@ -1,8 +1,10 @@
 package com.yxd.imagepickers.ui;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.yxd.imagepickers.R;
 import com.yxd.imagepickers.adapter.ImagePageAdapter;
 import com.yxd.imagepickers.bean.ImageItem;
 import com.yxd.imagepickers.util.Utils;
+import com.yxd.imagepickers.view.SystemBarTintManager;
 import com.yxd.imagepickers.view.ViewPagerFixed;
 
 import java.util.ArrayList;
@@ -32,10 +35,25 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
     protected ViewPagerFixed mViewPager;
     protected ImagePageAdapter mAdapter;
     protected boolean isFromItems = false;
+    protected SystemBarTintManager tintManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
+            View decorView =getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4到5.0
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+        tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.status_bar);  //设置上方状态栏的颜色
         setContentView(R.layout.activity_image_preview);
 
         mCurrentPosition = getIntent().getIntExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
@@ -60,6 +78,9 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) topBar.getLayoutParams();
             params.topMargin = Utils.getStatusHeight(this);
+            if(Build.VERSION.SDK_INT>=26){
+                params.topMargin=params.topMargin+30;
+            }
             topBar.setLayoutParams(params);
         }
         topBar.findViewById(R.id.btn_ok).setVisibility(View.GONE);

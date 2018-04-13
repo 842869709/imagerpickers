@@ -44,6 +44,11 @@ public class XUtils3ImageLoader implements ImageLoader {
     }
 
     @Override
+    public void displayInternetImage(Activity activity, String path, ImageView imageView, int width, int height) {
+
+    }
+
+    @Override
     public void clearMemoryCache() {
     }
 }

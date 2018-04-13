@@ -1,5 +1,6 @@
 package com.yxd.imagepickers.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,13 +13,43 @@ import android.widget.ImageView;
 
 import com.yxd.imagepickers.ImagePicker;
 import com.yxd.imagepickers.R;
+import com.yxd.imagepickers.bean.ImageItem;
 import com.yxd.imagepickers.util.NavigationBarChangeListener;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 描    述：
  * 修订历史：预览已经选择的图片，并可以删除
  */
 public class ImagePreviewDelActivity extends ImagePreviewBaseActivity implements View.OnClickListener {
+
+    public static final int REQUEST_CODE = 0x101;
+
+    public static final int RESULT_CODE = 0x102;
+
+    protected ArrayList<ImageItem> mDelImageList=new ArrayList<>();
+
+
+    public static void startForResult(Activity context, List<ImageItem> images, int position) {
+        startForResult(context, images, position, REQUEST_CODE);
+    }
+
+    public static void startForResult(Activity context, List<ImageItem> images, int position, int requestCode) {
+        Intent intent = new Intent(context, ImagePreviewDelActivity.class);
+        intent.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (Serializable) images);
+        intent.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
+        intent.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
+        context.startActivityForResult(intent, requestCode);
+    }
+    public static void startForResult(Activity context, List<ImageItem> images) {
+        Intent intent = new Intent(context, ImagePreviewDelActivity.class);
+        intent.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (Serializable) images);
+        intent.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
+        context.startActivityForResult(intent, REQUEST_CODE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +103,7 @@ public class ImagePreviewDelActivity extends ImagePreviewBaseActivity implements
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //移除当前图片刷新界面
+                mDelImageList.add(mImageItems.get(mCurrentPosition));
                 mImageItems.remove(mCurrentPosition);
                 if (mImageItems.size() > 0) {
                     mAdapter.setData(mImageItems);
@@ -90,6 +122,7 @@ public class ImagePreviewDelActivity extends ImagePreviewBaseActivity implements
         Intent intent = new Intent();
         //带回最新数据
         intent.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, mImageItems);
+        intent.putExtra(ImagePicker.DELIMAGELIST,mDelImageList);
         setResult(ImagePicker.RESULT_CODE_BACK, intent);
         finish();
         super.onBackPressed();

@@ -41,6 +41,11 @@ public class PicassoImageLoader implements ImageLoader {
     }
 
     @Override
+    public void displayInternetImage(Activity activity, String path, ImageView imageView, int width, int height) {
+
+    }
+
+    @Override
     public void clearMemoryCache() {
     }
 }
