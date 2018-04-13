@@ -29,7 +29,7 @@ https://github.com/easonline/AndroidImagePicker
 		}
 	}
 	dependencies {
-	        compile 'com.github.842869709:imagerpickers:v1.0.0'
+	        compile 'com.github.842869709:imagerpickers:v1.1.0'
 	}
 ```
 ## 2.功能参数与含义
@@ -133,3 +133,5 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
+## v1.1.0图片预览支持网络图片
+## v1.0.0第一次提交
