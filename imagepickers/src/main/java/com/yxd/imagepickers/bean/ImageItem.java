@@ -20,6 +20,7 @@ public class ImageItem implements Serializable, Parcelable {
     public long addTime;      //图片的创建时间
     public boolean internet=false;//true 表示是网络图片  false表示是本地图片
 
+
     /** 图片的路径和创建时间相同就认为是同一张图片 */
     @Override
     public boolean equals(Object o) {
