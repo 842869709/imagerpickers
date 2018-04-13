@@ -45,8 +45,7 @@ public class GlideImageLoader implements ImageLoader {
     public void displayInternetImage(Activity activity, String path, final ImageView imageView, int width, int height) {
         Glide.with(activity)
                 .load(path)
-                .asBitmap()
-                .centerCrop()
+                .asBitmap()/*.centerCrop() 显示类型*/
                 .thumbnail(0.05f)
                 .error(R.drawable.ic_default_image)  //设置错误图片
                 .placeholder(R.drawable.ic_default_image)     //设置占位图片

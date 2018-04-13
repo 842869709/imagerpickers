@@ -1,6 +1,7 @@
 package com.czy_yangxudong.photo.wxdemo;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.yxd.imagepickers.ImagePicker;
 import com.yxd.imagepickers.bean.ImageItem;
 import com.yxd.imagepickers.ui.ImageGridActivity;
@@ -143,6 +147,10 @@ public class WxDemoActivity extends AppCompatActivity implements ImagePickerAdap
             //添加图片返回
             if (data != null && requestCode == REQUEST_CODE_SELECT) {
                 images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                final ImageItem imageItem=new ImageItem();
+                imageItem.internet=true;
+                imageItem.path="https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=5975ff04f41986185e47e9847aec2e69/7acb0a46f21fbe09810db97167600c338744ad00.jpg";
+                images.add(imageItem);
                 if (images != null) {
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
@@ -160,4 +168,6 @@ public class WxDemoActivity extends AppCompatActivity implements ImagePickerAdap
             }
         }
     }
+
+
 }

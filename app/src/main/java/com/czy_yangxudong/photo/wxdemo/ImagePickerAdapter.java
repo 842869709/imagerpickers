@@ -93,7 +93,11 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
                 iv_img.setImageResource(R.drawable.selector_image_add);
                 clickPosition = WxDemoActivity.IMAGE_ITEM_ADD;
             } else {
-                ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, item.path, iv_img, 0, 0);
+                if (item.internet){
+                    ImagePicker.getInstance().getImageLoader().displayInternetImage((Activity) mContext, item.path, iv_img, 0, 0);
+                }else{
+                    ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, item.path, iv_img, 0, 0);
+                }
                 clickPosition = position;
             }
         }

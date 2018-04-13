@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 描    述：图片信息
  * 修订历史：
  */
-public class ImageItem implements Serializable, Parcelable {
+public class ImageItem implements Serializable/*, Parcelable*/ {
 
     public String name;       //图片的名字
     public String path;       //图片的路径
@@ -33,7 +33,7 @@ public class ImageItem implements Serializable, Parcelable {
     }
 
 
-    @Override
+   /* @Override
     public int describeContents() {
         return 0;
     }
@@ -47,7 +47,8 @@ public class ImageItem implements Serializable, Parcelable {
         dest.writeInt(this.height);
         dest.writeString(this.mimeType);
         dest.writeLong(this.addTime);
-    }
+
+    }*/
 
     public ImageItem() {
     }
@@ -62,7 +63,7 @@ public class ImageItem implements Serializable, Parcelable {
         this.addTime = in.readLong();
     }
 
-    public static final Creator<ImageItem> CREATOR = new Creator<ImageItem>() {
+   /* public static final Creator<ImageItem> CREATOR = new Creator<ImageItem>() {
         @Override
         public ImageItem createFromParcel(Parcel source) {
             return new ImageItem(source);
@@ -72,5 +73,5 @@ public class ImageItem implements Serializable, Parcelable {
         public ImageItem[] newArray(int size) {
             return new ImageItem[size];
         }
-    };
+    };*/
 }
