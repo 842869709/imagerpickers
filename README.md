@@ -155,5 +155,6 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
+## v1.1.1图片预览支持网络图片修改
 ## v1.1.0图片预览支持网络图片
 ## v1.0.0第一次提交
