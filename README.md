@@ -118,8 +118,9 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 3，以上配置完成后，如果 开启相册，例如点击按钮时
-}
+
 ```
+}
  //打开选择,本次允许选择的数量
   ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
   Intent intent1 = new Intent(WxDemoActivity.this, ImageGridActivity.class);
@@ -142,18 +143,29 @@ startActivityForResult(intent, REQUEST_CODE_SELECT);
 重写onActivityResult方法,回调结果
 ```
 @Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
-        if (data != null && requestCode == IMAGE_PICKER) {
-            ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-            MyAdapter adapter = new MyAdapter(images);
-            gridView.setAdapter(adapter);
-        } else {
-            Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            //添加图片返回
+            if (data != null && requestCode == REQUEST_CODE_SELECT) {
+                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if (images != null) {
+                    selImageList.addAll(images);
+                    adapter.setImages(selImageList);
+                }
+            }
+        } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
+            //预览图片返回
+            if (data != null && requestCode == REQUEST_CODE_PREVIEW) {
+                images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
+                if (images != null) {
+                    selImageList.clear();
+                    selImageList.addAll(images);
+                    adapter.setImages(selImageList);
+                }
+            }
         }
     }
-}
 ```
 ## v1.1.1图片预览支持网络图片修改
 ## v1.1.0图片预览支持网络图片
