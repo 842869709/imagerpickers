@@ -29,7 +29,7 @@ https://github.com/easonline/AndroidImagePicker
 		}
 	}
 	dependencies {
-	        compile 'com.github.842869709:imagerpickers:v1.1.0'
+	        compile 'com.github.842869709:imagerpickers:v1.1.1'
 	}
 ```
 ## 2.功能参数与含义
